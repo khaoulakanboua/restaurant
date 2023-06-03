@@ -20,7 +20,6 @@ import com.example.demo.service.VilleService;
 @RequestMapping("/api/villes")
 @RestController
 @CrossOrigin("*")
-
 public class VilleControlleur {
 		
 	@Autowired
