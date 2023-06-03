@@ -19,7 +19,7 @@ public class Zone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nom;
-	@ManyToOne(fetch = FetchType.LAZY,cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+	@ManyToOne
 	private Ville ville;
 	
 	@OneToMany(mappedBy = "zone")

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entity.Ville;
 import com.example.demo.entity.Zone;
+import com.example.demo.service.VilleService;
 import com.example.demo.service.ZoneService;
 
 @RequestMapping("/api/zones")
@@ -20,12 +22,14 @@ import com.example.demo.service.ZoneService;
 public class ZoneController {
 	@Autowired
 	ZoneService zoneservice;
+	@Autowired
+	VilleService villeservice;
 	
 	@PostMapping("/save")
 	public Zone save(@RequestBody Zone o) {
 		return zoneservice.save(o);
 	}
-	@GetMapping("/")
+	@GetMapping("/all")
 	public List<Zone> findall() {
 		return zoneservice.findall();
 	}
@@ -39,13 +43,24 @@ public class ZoneController {
 		zoneservice.delete(o);
 	}
 	@PutMapping("/update/{id}")
-	public void update(@PathVariable Zone o) {
-		zoneservice.save(o);
+	public Zone update(@PathVariable int id, @RequestBody Zone sp) {
+		Zone existingzone = zoneservice.findbyid(id);
+		Ville v = villeservice.findbyid(sp.getVille().getId());
+        if (existingzone!=null) {
+        	existingzone.setNom(sp.getNom());
+        	existingzone.setVille(v);
+            return zoneservice.save(existingzone);
+        }
+        return null;
+		
 	}
 	@GetMapping("/ville/zones/{nom}")
 	public List<Zone> findVilleByNom(@PathVariable String nom) {
 		return zoneservice.findVilleByNom(nom);
 	}
-	
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable int id) {
+		zoneservice.delete(id);
+	}
 	
 }

@@ -54,7 +54,11 @@ public class ZoneService implements IDao<Zone>{
 	public Zone findByNom(String nom) {
 		return zonerepository.findByNom(nom);
 	}
-	
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		zonerepository.deleteById(id);
+		
+	}
 
 	
 	

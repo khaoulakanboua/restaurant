@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Resto;
+import com.example.demo.entity.Ville;
 import com.example.demo.service.RestoService;
 
 @RequestMapping("/api/resto")
@@ -46,6 +47,18 @@ public class RestoController {
 	public void update(@PathVariable Resto o) {
 		restoservice.update(o);
 	}
+	
+	
+	@PutMapping("/{id}")
+	 public Resto updateResto(@PathVariable int id, @RequestBody Resto resto) {
+	        Resto existingVille = restoservice.findbyid(id);
+	        if (existingVille != null) {
+	            existingVille.setNom(resto.getNom());
+	            return restoservice.save(existingVille);
+	        }
+	        return null;
+	    }
+	
 	@GetMapping("/zones/zone/{nom}")
 	public List<Resto> findRestoByNom(@PathVariable String nom) {
 		return restoservice.findRestoByNom(nom);
@@ -60,6 +73,16 @@ public class RestoController {
 		return restoservice.findRestoByZoneAndSerie(zone, serie);
 	}
 	
+	@GetMapping("/filter/{ville}/{zone}")
+	public List<Resto> findRestoByVilleAndZone(@PathVariable String ville,@PathVariable String zone) {
+		
+		return restoservice.findRestoByVilleAndZone(ville, zone);
+	}
 	
+	@GetMapping("/filter2/{ville}/{zone}/{serie}")
+	public List<Resto> findRestoByVilleAndZoneAndSerie(@PathVariable String ville,@PathVariable String zone,@PathVariable String serie) {
+		
+		return restoservice.findRestoByVilleAndZoneAndSerie(ville,zone, serie);
+	}
 	
 }

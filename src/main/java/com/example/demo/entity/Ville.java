@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Fetch;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -19,7 +21,7 @@ public class Ville {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nom;
-	@OneToMany(mappedBy = "ville")
+	@OneToMany(mappedBy = "ville" , fetch=FetchType.EAGER)
 	@JsonIgnore
 	private List<Zone> zone;
 	public int getId() {

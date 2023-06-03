@@ -34,11 +34,7 @@ public class VilleService implements IDao<Ville>{
 
 	@Override
 	public void delete(Ville o) {
-		List<Zone> z1 =zonerepository.findByVilleId(o.getId());
-		for (Zone z : z1) {
-			
-			zonerepository.delete(z);
-		}
+		
 		villerepository.delete(o);		
 	}
 
@@ -49,6 +45,14 @@ public class VilleService implements IDao<Ville>{
 
 	public Ville findByNom(String nom) {
 		return villerepository.findByNom(nom);
+	}
+	public void delete(int id) {
+		List<Zone> z1 =zonerepository.findByVilleId(id);
+		for (Zone z : z1) {
+			
+			zonerepository.delete(z);
+		}		villerepository.deleteById(id);
+		
 	}
 	
 	

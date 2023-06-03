@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.example.demo.security.springjwt.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -27,12 +28,17 @@ public class Resto {
 	private double langitude;
 	private double latitude;
 	private String rank;
-	@Temporal(TemporalType.TIME)
-	private Date h_Open;
-	@Temporal(TemporalType.TIME)
-	private Date h_Close;
+	private String h_Open;
+	private String h_Close;
 	private String week;
+	private String image;
 	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	@OneToMany(mappedBy = "resto")
 	private List<Photo> photo;
 	@ManyToOne
@@ -116,16 +122,16 @@ public class Resto {
 	public void setRank(String rank) {
 		this.rank = rank;
 	}	
-	public Date getH_Open() {
+	public String getH_Open() {
 		return h_Open;
 	}
-	public void setH_Open(Date h_Open) {
+	public void setH_Open(String h_Open) {
 		this.h_Open = h_Open;
 	}
-	public Date getH_Close() {
+	public String getH_Close() {
 		return h_Close;
 	}
-	public void setH_Close(Date h_Close) {
+	public void setH_Close(String h_Close) {
 		this.h_Close = h_Close;
 	}
 	public String getWeek() {

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entity.Specialite;
 import com.example.demo.entity.Ville;
 import com.example.demo.service.VilleService;
 
@@ -35,12 +36,31 @@ public class VilleControlleur {
 	public Ville findbyid(@PathVariable int id) {
 		return villeservice.findbyid(id);
 	}
-	@DeleteMapping("/delete")
+	/*@DeleteMapping("/delete")
 	public void delete(@RequestBody Ville o) {
 		villeservice.delete(o);
+	}*/
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable int id) {
+		villeservice.delete(id);
 	}
-	@PutMapping("/update/{id}")
+	
+	/*@PutMapping("/update/{id}")
 	public void update(@PathVariable Ville o) {
 		villeservice.save(o);
-	}
+	}*/
+	
+	
+	@PutMapping("/{id}")
+	 public Ville updateVille(@PathVariable int id, @RequestBody Ville ville) {
+	        Ville existingVille = villeservice.findbyid(id);
+	        if (existingVille != null) {
+	            existingVille.setNom(ville.getNom());
+	            return villeservice.save(existingVille);
+	        }
+	        return null;
+	    }
+	
+	
+	
 }
