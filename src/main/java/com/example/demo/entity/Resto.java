@@ -139,6 +139,5 @@ public class Resto {
 	}
 	public void setWeek(String week) {
 		this.week = week;
-	}
-	
+	}	
 }
